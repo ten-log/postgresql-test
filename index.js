@@ -2,18 +2,21 @@ const express = require('express'),
       bodyParser = require('body-parser'),  //post 쓰려고
       cors = require('cors'),  //요청한 데이터를 브라우저에서 보안목적으로 차단하는데 이요청을 허가해주는 nodejs 의 미들웨어
       app = express(); //앱에 적용
-const port = 5000;
+const port = process.env.port || 5000;
 // postgresql 에서 db 값을 가져오기위한 데이터
 //const Pool = require('pg-pool');
 const { Pool } = require('pg');
 
+//.env 값 가져오기
+require('dotenv').config();
+
 
 const config = {
   user: 'yeol',
-  password:'038100',
-  host: '192.168.142.132',
+  password:process.env.password,
+  host:    process.env.host,
   port: 5432,
-  database: 'tunneldata',
+  database:process.env.database,
 };
 let pool = new Pool(config);
  app.use(cors());  // 외부와의 연결 허용
